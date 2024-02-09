@@ -1,0 +1,2 @@
+chat:
+  message-format: '<name> <yellow>→ <gray><message>'
