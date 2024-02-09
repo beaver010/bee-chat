@@ -4,3 +4,8 @@ version: '1.0'
 api-version: '1.20'
 authors:
   - beaver010
+dependencies:
+  server:
+    MiniPlaceholders:
+      required: false
+      load: BEFORE

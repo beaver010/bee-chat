@@ -15,7 +15,8 @@ object ChatListener: Listener {
             event.renderer { source, _, message, _ ->
                 val tags = TagResolver.resolver(
                     Placeholders.name(source),
-                    Placeholders.message(message)
+                    Placeholders.message(message),
+                    BeeChat.miniPlaceholders.audiencePlaceholders(source)
                 )
 
                 MiniMessage.miniMessage().deserialize(format, tags)
