@@ -1,2 +1,10 @@
+# ===============================================
+# Use MiniMessage as text format
+#   -> https://docs.advntr.dev/minimessage/format
+# ===============================================
+
 chat:
+  # Placeholders:
+  #   <name> - player name
+  #   <message> - message
   message-format: '<name> <yellow>→ <gray><message>'
