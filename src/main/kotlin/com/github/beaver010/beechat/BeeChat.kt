@@ -13,6 +13,8 @@ class BeeChat: JavaPlugin() {
         saveDefaultConfig()
         pluginConfig = PluginConfig(config)
 
+        Permissions.register()
+
         miniPlaceholders = MiniPlaceholdersIntegration()
 
         registerEvents(ChatListener)
