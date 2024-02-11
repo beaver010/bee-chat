@@ -10,10 +10,10 @@ object Permissions {
     private val messageFormattingPermissions = mapOf(
         formatPermission("color") to TagResolver.resolver(
             StandardTags.color(),
-            StandardTags.reset(),
             StandardTags.gradient(),
             StandardTags.rainbow()
         ),
+        formatPermission("reset") to StandardTags.reset(),
         formatPermission("decorations") to StandardTags.decorations(),
         formatPermission("insertion") to StandardTags.insertion(),
         formatPermission("click") to StandardTags.clickEvent(),
