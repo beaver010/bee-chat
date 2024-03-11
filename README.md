@@ -1,9 +1,10 @@
 # BeeChat
-Chat formatting plugin for Paper and its forks.
+Chat and tab formatting plugin for Paper and its forks.
 ### Features
 - [MiniMessage](https://docs.advntr.dev/minimessage/format.html) in config and chat
 - Using placeholders from [MiniPlaceholders](https://modrinth.com/plugin/miniplaceholders) in config
 - Message formatting with permissions
+- Tab customization
 
 ## Message formatting
 Players with permission can use formatting with MiniMessage in chat.
