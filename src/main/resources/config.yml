@@ -8,3 +8,10 @@ chat:
   #   <name> - player name
   #   <message> - message
   message-format: '<name> <yellow>→ <gray><message>'
+
+tab-list:
+  enable: true
+  update-period: 200
+  header: '<br><gradient:yellow:gold>My Server<br>'
+  footer: '<br><yellow>Store: <gray>store.my-server.net<br>'
+  player-name: '<name>'

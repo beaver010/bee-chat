@@ -10,4 +10,10 @@ class MiniPlaceholdersIntegration: PluginIntegration("MiniPlaceholders") {
     } else {
         TagResolver.empty()
     }
+
+    fun globalPlaceholders() = if (isEnabled) {
+        MiniPlaceholders.getGlobalPlaceholders()
+    } else {
+        TagResolver.empty()
+    }
 }
