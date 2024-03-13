@@ -1,8 +1,8 @@
 package com.github.beaver010.beechat.listener
 
-import com.github.beaver010.beechat.BeeChat
 import com.github.beaver010.beechat.Placeholders
 import com.github.beaver010.beechat.PluginConfig
+import com.github.beaver010.beechat.integration.MiniPlaceholdersIntegration
 import io.papermc.paper.event.player.AsyncChatEvent
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
@@ -19,7 +19,7 @@ object ChatListener: Listener {
                 val tags = TagResolver.resolver(
                     Placeholders.name(source),
                     Placeholders.message(source, message),
-                    BeeChat.miniPlaceholders.audiencePlaceholders(source)
+                    MiniPlaceholdersIntegration.audiencePlaceholders(source)
                 )
 
                 MiniMessage.miniMessage().deserialize(format, tags)

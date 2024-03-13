@@ -1,6 +1,5 @@
 package com.github.beaver010.beechat
 
-import com.github.beaver010.beechat.integration.MiniPlaceholdersIntegration
 import com.github.beaver010.beechat.listener.ChatListener
 import com.github.beaver010.beechat.listener.JoinListener
 import org.bukkit.event.Listener
@@ -15,8 +14,6 @@ class BeeChat: JavaPlugin() {
         saveDefaultConfig()
 
         Permissions.register()
-
-        miniPlaceholders = MiniPlaceholdersIntegration()
 
         registerEvents(ChatListener)
 
@@ -40,6 +37,5 @@ class BeeChat: JavaPlugin() {
 
     companion object {
         lateinit var instance: BeeChat
-        lateinit var miniPlaceholders: MiniPlaceholdersIntegration
     }
 }
