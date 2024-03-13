@@ -15,9 +15,9 @@ tab-list:
   # Tab list update period in ticks (20 ticks = 1 second)
   update-period: 200
   # Tab list header
-  header: '<br><gradient:yellow:gold>My Server<br>'
+  header: '<br><gradient:yellow:gold>Example Server<br>'
   # Tab list footer
-  footer: '<br><yellow>Store: <gray>store.my-server.net<br>'
+  footer: '<br><yellow>Store: <gray>store.example.com<br>'
   # Player name in tab list.
   # <name> - placeholder for player name
   player-name: '<name>'
