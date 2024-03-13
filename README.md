@@ -40,11 +40,6 @@ If you want to use a prefix or other information from LuckPerms, you need to ins
 Here's an example of the configuration I used for the screenshots:
 
 ```
-# ===============================================
-# Use MiniMessage as text format
-#   -> https://docs.advntr.dev/minimessage/format
-# ===============================================
-
 chat:
   # Placeholders:
   #   <name> - player name
