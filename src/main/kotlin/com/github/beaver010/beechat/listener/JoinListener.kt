@@ -5,7 +5,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 
-object JoinListener: Listener {
+object JoinListener : Listener {
     @EventHandler
     fun onJoin(joinEvent: PlayerJoinEvent) {
         TabList.send(joinEvent.player)

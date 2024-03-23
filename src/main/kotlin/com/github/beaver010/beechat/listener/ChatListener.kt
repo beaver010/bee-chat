@@ -9,7 +9,7 @@ import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 
-object ChatListener: Listener {
+object ChatListener : Listener {
     @EventHandler
     fun onChat(event: AsyncChatEvent) {
         val format = PluginConfig.messageFormat

@@ -5,7 +5,7 @@ import com.github.beaver010.beechat.listener.JoinListener
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 
-class BeeChat: JavaPlugin() {
+class BeeChat : JavaPlugin() {
     override fun onLoad() {
         instance = this
     }
