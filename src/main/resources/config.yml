@@ -13,6 +13,7 @@ tab-list:
   # Enable tab list formatting
   enable: true
   # Tab list update period in ticks (20 ticks = 1 second)
+  # 0 to disable updating
   update-period: 200
   # Tab list header
   header: '<br><gradient:yellow:gold>Example Server<br>'
