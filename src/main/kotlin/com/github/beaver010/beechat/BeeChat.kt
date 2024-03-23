@@ -6,6 +6,7 @@ import dev.jorel.commandapi.CommandAPI
 import dev.jorel.commandapi.CommandAPIBukkitConfig
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
+import org.bukkit.scheduler.BukkitTask
 
 class BeeChat : JavaPlugin() {
     override fun onLoad() {
@@ -15,22 +16,20 @@ class BeeChat : JavaPlugin() {
     }
 
     override fun onEnable() {
-        CommandAPI.onEnable()
-
         saveDefaultConfig()
+        pluginConfig = PluginConfig(config)
+
+        CommandAPI.onEnable()
+        Command.register()
+
         Permissions.register()
         registerEvents(ChatListener)
 
-        if (PluginConfig.tabListFormattingEnabled) {
+        if (pluginConfig.tabListFormattingEnabled) {
             registerEvents(JoinListener)
 
-            if (PluginConfig.tabListUpdatePeriod > 0) {
-                server.scheduler.runTaskTimer(
-                    this,
-                    TabList::update,
-                    0,
-                    PluginConfig.tabListUpdatePeriod
-                )
+            if (pluginConfig.tabListUpdatePeriod > 0) {
+                restartTabListUpdateTask()
             }
         }
     }
@@ -45,5 +44,26 @@ class BeeChat : JavaPlugin() {
 
     companion object {
         lateinit var instance: BeeChat
+        lateinit var pluginConfig: PluginConfig
+        private var tabListUpdateTask: BukkitTask? = null
+
+        fun reloadConfig() {
+            instance.run {
+                reloadConfig()
+                pluginConfig = PluginConfig(config)
+            }
+        }
+
+        fun restartTabListUpdateTask() {
+            tabListUpdateTask?.cancel()
+            tabListUpdateTask = instance.server
+                .scheduler
+                .runTaskTimer(
+                    instance,
+                    TabList::update,
+                    0,
+                    pluginConfig.tabListUpdatePeriod
+                )
+        }
     }
 }

@@ -22,3 +22,6 @@ tab-list:
   # Player name in tab list.
   # <name> - placeholder for player name
   player-name: '<name>'
+
+messages:
+  reload: '<green>The <gradient:yellow:gold>BeeChat</gradient> configuration has been reloaded'

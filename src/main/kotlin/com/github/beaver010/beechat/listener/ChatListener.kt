@@ -1,7 +1,7 @@
 package com.github.beaver010.beechat.listener
 
+import com.github.beaver010.beechat.BeeChat
 import com.github.beaver010.beechat.Placeholders
-import com.github.beaver010.beechat.PluginConfig
 import com.github.beaver010.beechat.integration.MiniPlaceholdersIntegration
 import io.papermc.paper.event.player.AsyncChatEvent
 import net.kyori.adventure.text.minimessage.MiniMessage
@@ -12,7 +12,7 @@ import org.bukkit.event.Listener
 object ChatListener : Listener {
     @EventHandler
     fun onChat(event: AsyncChatEvent) {
-        val format = PluginConfig.messageFormat
+        val format = BeeChat.pluginConfig.messageFormat
 
         if (format.isNotEmpty()) {
             event.renderer { source, _, message, _ ->

@@ -8,12 +8,12 @@ import org.bukkit.entity.Player
 object TabList {
     fun send(player: Player) {
         val miniMessage = MiniMessage.miniMessage()
-
+        val config = BeeChat.pluginConfig
         val audiencePlaceholders = MiniPlaceholdersIntegration.audiencePlaceholders(player)
 
-        if (PluginConfig.tabListPlayerName.isNotEmpty()) {
+        if (config.tabListPlayerName.isNotEmpty()) {
             val tabListName = miniMessage.deserialize(
-                PluginConfig.tabListPlayerName,
+                config.tabListPlayerName,
                 TagResolver.resolver(
                     Placeholders.name(player),
                     audiencePlaceholders
@@ -29,8 +29,8 @@ object TabList {
         )
 
         player.sendPlayerListHeaderAndFooter(
-            miniMessage.deserialize(PluginConfig.tabListHeader, placeholders),
-            miniMessage.deserialize(PluginConfig.tabListFooter, placeholders)
+            miniMessage.deserialize(config.tabListHeader, placeholders),
+            miniMessage.deserialize(config.tabListFooter, placeholders)
         )
     }
 
