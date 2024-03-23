@@ -24,4 +24,5 @@ tab-list:
   player-name: '<name>'
 
 messages:
+  # Message for '/beechat reload' command
   reload: '<green>The <gradient:yellow:gold>BeeChat</gradient> configuration has been reloaded'
