@@ -58,4 +58,13 @@ tab-list:
   # Player name in tab list.
   # <name> - placeholder for player name
   player-name: '<luckperms_prefix> <reset><name> <luckperms_suffix>'
+
+messages:
+  # Message for '/beechat reload' command
+  reload: '<green>The <gradient:yellow:gold>BeeChat</gradient> configuration has been reloaded'
 ```
+
+### Reloading
+The configuration can be reloaded using the command `/beechat reload`. 
+
+Permission for the command: **beechat.reload**
