@@ -6,6 +6,8 @@ import org.bukkit.entity.Player
 import org.bukkit.permissions.Permission
 
 object Permissions {
+    val reload = pluginPermission("reload")
+
     private val allMessageFormatting = formatPermission("all")
     private val messageFormattingPermissions = mapOf(
         formatPermission("color") to TagResolver.resolver(
@@ -23,6 +25,7 @@ object Permissions {
     fun register() {
         val pm = BeeChat.instance.server.pluginManager
 
+        pm.addPermission(reload)
         pm.addPermission(allMessageFormatting)
 
         messageFormattingPermissions.keys.forEach {

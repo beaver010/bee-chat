@@ -14,12 +14,6 @@ repositories {
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
     compileOnly("io.github.miniplaceholders:miniplaceholders-api:2.2.3")
-    implementation("dev.jorel:commandapi-bukkit-shade:9.3.0")
-    implementation("dev.jorel:commandapi-bukkit-kotlin:9.3.0")
-}
-
-tasks.shadowJar {
-    relocate("dev.jorel.commandapi", "${project.group}.beechat.commandapi")
 }
 
 kotlin {
