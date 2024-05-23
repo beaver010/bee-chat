@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.github.beaver010"
-version = "1.2"
+version = "1.2.1"
 
 repositories {
     mavenCentral()
