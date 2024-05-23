@@ -43,8 +43,8 @@ class BeeChat : JavaPlugin() {
     }
 
     companion object {
-        lateinit var instance: BeeChat
-        lateinit var pluginConfig: PluginConfig
+        lateinit var instance: BeeChat private set
+        lateinit var pluginConfig: PluginConfig private set
         private var tabListUpdateTask: BukkitTask? = null
 
         fun reloadConfig() {
