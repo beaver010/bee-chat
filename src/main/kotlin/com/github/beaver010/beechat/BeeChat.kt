@@ -7,7 +7,6 @@ import org.bukkit.command.Command
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.scheduler.BukkitTask
-import org.spongepowered.configurate.ConfigurationNode
 import org.spongepowered.configurate.kotlin.extensions.get
 import org.spongepowered.configurate.kotlin.objectMapperFactory
 import org.spongepowered.configurate.yaml.NodeStyle
@@ -49,6 +48,10 @@ class BeeChat : JavaPlugin() {
 
     fun loadConfig() {
         val configFile = File(this.dataFolder, "config.yml")
+        if (!configFile.exists()) {
+            saveDefaultConfig()
+        }
+
         val loader = YamlConfigurationLoader.builder()
             .file(configFile)
             .nodeStyle(NodeStyle.BLOCK)
@@ -59,16 +62,9 @@ class BeeChat : JavaPlugin() {
             }
             .build()
 
-        val rootNode: ConfigurationNode = loader.load()
+        val rootNode = loader.load()
 
-        var tempConfig: Config? = rootNode.get()
-        if (!configFile.exists() || tempConfig == null) {
-            tempConfig = Config()
-            rootNode.set(tempConfig)
-            loader.save(rootNode)
-        }
-
-        this.config = tempConfig
+        this.config = rootNode.get() ?: Config()
     }
 
     fun restartTabListUpdateTask() {
