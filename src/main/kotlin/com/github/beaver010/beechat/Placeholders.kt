@@ -8,15 +8,12 @@ import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
 import org.bukkit.entity.Player
 
 object Placeholders {
-    private const val NAME = "name"
-    private const val MESSAGE = "message"
-
     private val emptyMiniMessage = MiniMessage.builder()
         .tags(TagResolver.empty())
         .build()
 
     fun name(player: Player): TagResolver.Single =
-        Placeholder.unparsed(NAME, player.name)
+        Placeholder.unparsed("name", player.name)
 
     fun message(player: Player, chatMessage: Component): TagResolver.Single {
         val messagePlainText = PlainTextComponentSerializer
@@ -24,8 +21,8 @@ object Placeholders {
             .serialize(chatMessage)
 
         val allowedTags = Permissions.allowedMiniMessageTags(player)
-        val message = emptyMiniMessage.deserialize(messagePlainText, allowedTags)
+        val message = this.emptyMiniMessage.deserialize(messagePlainText, allowedTags)
 
-        return Placeholder.component(MESSAGE, message)
+        return Placeholder.component("message", message)
     }
 }

@@ -25,20 +25,17 @@ object Permissions {
     fun register() {
         val pm = BeeChat.instance.server.pluginManager
 
-        pm.addPermission(reload)
-        pm.addPermission(allMessageFormatting)
-
-        messageFormattingPermissions.keys.forEach {
-            pm.addPermission(it)
-        }
+        pm.addPermission(this.reload)
+        pm.addPermission(this.allMessageFormatting)
+        this.messageFormattingPermissions.keys.forEach(pm::addPermission)
     }
 
     fun allowedMiniMessageTags(player: Player): TagResolver {
-        if (player.hasPermission(allMessageFormatting)) {
+        if (player.hasPermission(this.allMessageFormatting)) {
             return TagResolver.standard()
         }
 
-        val tags = messageFormattingPermissions
+        val tags = this.messageFormattingPermissions
             .filter { player.hasPermission(it.key) }
             .values
 
@@ -49,5 +46,5 @@ object Permissions {
         pluginPermission("format.$name")
 
     private fun pluginPermission(name: String) =
-        Permission("beechat.$name", Permission.DEFAULT_PERMISSION)
+        Permission("beechat.$name")
 }

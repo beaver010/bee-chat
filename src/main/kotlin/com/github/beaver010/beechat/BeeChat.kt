@@ -30,25 +30,25 @@ class BeeChat : JavaPlugin() {
         registerCommand(BeeChatCommand)
         registerEvents(ChatListener)
 
-        if (config.tabList.enable) {
+        if (this.config.tabList.enable) {
             registerEvents(JoinListener)
 
-            if (config.tabList.updatePeriod > 0) {
+            if (this.config.tabList.updatePeriod > 0) {
                 restartTabListUpdateTask()
             }
         }
     }
 
     private fun registerCommand(command: Command) {
-        server.commandMap.register(name, command)
+        this.server.commandMap.register(this.name, command)
     }
 
     private fun registerEvents(listener: Listener) {
-        server.pluginManager.registerEvents(listener, this)
+        this.server.pluginManager.registerEvents(listener, this)
     }
 
     fun loadConfig() {
-        val configFile = File(dataFolder, "config.yml")
+        val configFile = File(this.dataFolder, "config.yml")
         val loader = YamlConfigurationLoader.builder()
             .file(configFile)
             .nodeStyle(NodeStyle.BLOCK)
@@ -72,15 +72,13 @@ class BeeChat : JavaPlugin() {
     }
 
     fun restartTabListUpdateTask() {
-        tabListUpdateTask?.cancel()
-        tabListUpdateTask = instance.server
-            .scheduler
-            .runTaskTimer(
-                instance,
-                TabList::update,
-                0,
-                config.tabList.updatePeriod
-            )
+        this.tabListUpdateTask?.cancel()
+        this.tabListUpdateTask = this.server.scheduler.runTaskTimer(
+            instance,
+            TabList::update,
+            0,
+            config.tabList.updatePeriod
+        )
     }
 
     companion object {

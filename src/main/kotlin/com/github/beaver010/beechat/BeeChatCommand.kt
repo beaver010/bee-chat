@@ -8,7 +8,7 @@ import org.bukkit.plugin.Plugin
 
 object BeeChatCommand : Command("beechat"), PluginIdentifiableCommand {
     init {
-        permission = Permissions.reload.name
+        this.permission = Permissions.reload.name
     }
 
     override fun execute(
@@ -18,12 +18,10 @@ object BeeChatCommand : Command("beechat"), PluginIdentifiableCommand {
     ): Boolean {
         testPermission(sender)
 
-        val pluginInstance = BeeChat.instance
-
         if (args.firstOrNull() == "reload") {
-            pluginInstance.loadConfig()
-            pluginInstance.restartTabListUpdateTask()
-            val message = pluginInstance.config.messages.reload
+            this.plugin.loadConfig()
+            this.plugin.restartTabListUpdateTask()
+            val message = this.plugin.config.messages.reload
             sender.sendMessage(MiniMessage.miniMessage().deserialize(message))
         }
 
@@ -42,7 +40,7 @@ object BeeChatCommand : Command("beechat"), PluginIdentifiableCommand {
         return completions
     }
 
-    override fun getPlugin(): Plugin {
+    override fun getPlugin(): BeeChat {
         return BeeChat.instance
     }
 }
