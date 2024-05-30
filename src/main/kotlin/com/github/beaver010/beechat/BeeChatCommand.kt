@@ -18,13 +18,13 @@ object BeeChatCommand : Command("beechat"), PluginIdentifiableCommand {
     ): Boolean {
         testPermission(sender)
 
+        val pluginInstance = BeeChat.instance
+
         if (args.firstOrNull() == "reload") {
-            BeeChat.reloadConfig()
-            BeeChat.restartTabListUpdateTask()
-            val message = BeeChat.pluginConfig.reloadMessage
-            sender.sendMessage(
-                MiniMessage.miniMessage().deserialize(message)
-            )
+            pluginInstance.loadConfig()
+            pluginInstance.restartTabListUpdateTask()
+            val message = pluginInstance.config.messages.reload
+            sender.sendMessage(MiniMessage.miniMessage().deserialize(message))
         }
 
         return true

@@ -12,18 +12,20 @@ import org.bukkit.event.Listener
 object ChatListener : Listener {
     @EventHandler
     fun onChat(event: AsyncChatEvent) {
-        val format = BeeChat.pluginConfig.messageFormat
+        val format = BeeChat.instance.config.chat.messageFormat
 
-        if (format.isNotEmpty()) {
-            event.renderer { source, _, message, _ ->
-                val tags = TagResolver.resolver(
-                    Placeholders.name(source),
-                    Placeholders.message(source, message),
-                    MiniPlaceholdersIntegration.audiencePlaceholders(source)
-                )
+        if (format.isEmpty()) {
+            return
+        }
 
-                MiniMessage.miniMessage().deserialize(format, tags)
-            }
+        event.renderer { source, _, message, _ ->
+            val tags = TagResolver.resolver(
+                Placeholders.name(source),
+                Placeholders.message(source, message),
+                MiniPlaceholdersIntegration.audiencePlaceholders(source)
+            )
+
+            MiniMessage.miniMessage().deserialize(format, tags)
         }
     }
 }
