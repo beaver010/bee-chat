@@ -1,25 +1,17 @@
 package com.github.beaver010.beechat
 
 import com.github.beaver010.beechat.integration.MiniPlaceholdersIntegration
-import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
 import org.bukkit.entity.Player
 
 object TabList {
     fun send(player: Player) {
-        val miniMessage = MiniMessage.miniMessage()
         val config = BeeChat.instance.config
         val audiencePlaceholders = MiniPlaceholdersIntegration.audiencePlaceholders(player)
 
         if (config.tabList.playerName.isNotEmpty()) {
-            val tabListName = miniMessage.deserialize(
-                config.tabList.playerName,
-                TagResolver.resolver(
-                    Placeholders.name(player),
-                    audiencePlaceholders
-                )
-            )
-
+            val tags = TagResolver.resolver(Placeholders.name(player), audiencePlaceholders)
+            val tabListName = config.tabList.playerName.miniMessage(tags)
             player.playerListName(tabListName)
         }
 
@@ -29,8 +21,8 @@ object TabList {
         )
 
         player.sendPlayerListHeaderAndFooter(
-            miniMessage.deserialize(config.tabList.header, placeholders),
-            miniMessage.deserialize(config.tabList.footer, placeholders)
+            config.tabList.header.miniMessage(placeholders),
+            config.tabList.footer.miniMessage(placeholders)
         )
     }
 

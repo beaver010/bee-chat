@@ -1,6 +1,5 @@
 package com.github.beaver010.beechat
 
-import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.command.PluginIdentifiableCommand
@@ -22,12 +21,12 @@ object BeeChatCommand : Command("beechat"), PluginIdentifiableCommand {
             this.plugin.loadConfig()
             this.plugin.restartTabListUpdateTask()
 
-            sender.sendMessage(MiniMessage.miniMessage().deserialize(messages.reload))
+            sender.sendMessage(messages.reload.miniMessage())
 
             return true
         }
 
-        sender.sendMessage(MiniMessage.miniMessage().deserialize(messages.unknownSubcommand))
+        sender.sendMessage(messages.unknownSubcommand.miniMessage())
 
         return false
     }
