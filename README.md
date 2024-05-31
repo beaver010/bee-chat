@@ -2,7 +2,7 @@
 Chat and tab formatting plugin for Paper and its forks.
 ### Features
 - [MiniMessage](https://docs.advntr.dev/minimessage/format.html) in config and chat
-- Using placeholders from [MiniPlaceholders](https://modrinth.com/plugin/miniplaceholders) in config
+- Using placeholders from [MiniPlaceholders](https://modrinth.com/plugin/miniplaceholders) and [PlaceholderAPI](https://hangar.papermc.io/HelpChat/PlaceholderAPI) in config
 - Message formatting with permissions
 - Tab customization
 
@@ -33,9 +33,7 @@ The default config can be found here: [https://github.com/beaver010/bee-chat/blo
 
 The configuration file (`config.yml`) only supports [MiniMessage](https://docs.advntr.dev/minimessage/format.html) format. Legacy (ampersand) formatting is not supported.
 
-You can use placeholders from [MiniPlaceholders](https://modrinth.com/plugin/miniplaceholders) in the configuration.
-
-If you want to use a prefix or other information from LuckPerms, you need to install MiniPlaceholders and [MiniPlaceholders LuckPerms Expansion](https://modrinth.com/plugin/luckperms-expansion).
+You can use placeholders from [MiniPlaceholders](https://modrinth.com/plugin/miniplaceholders) and [PlaceholderAPI](https://hangar.papermc.io/HelpChat/PlaceholderAPI) in the configuration.
 
 Here's an example of the configuration I used for the screenshots:
 
@@ -59,7 +57,10 @@ tab-list:
   # <name> - placeholder for player name
   player-name: '<luckperms_prefix> <reset><name> <luckperms_suffix>'
 
+# Messages do NOT support PlaceholderAPI placeholders
 messages:
+  # Used when the sender passes an unknown subcommand to the `/beechat` command
+  unknown-subcommand: '<red>Unknown subcommand'
   # Message for '/beechat reload' command
   reload: '<green>The <gradient:yellow:gold>BeeChat</gradient> configuration has been reloaded'
 ```
