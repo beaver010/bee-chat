@@ -23,6 +23,7 @@ tab-list:
   # <name> - placeholder for player name
   player-name: '<name>'
 
+# Messages do NOT support PlaceholderAPI placeholders
 messages:
   # Used when the sender passes an unknown subcommand to the `/beechat` command
   unknown-subcommand: '<red>Unknown subcommand'
