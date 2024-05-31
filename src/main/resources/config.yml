@@ -24,5 +24,7 @@ tab-list:
   player-name: '<name>'
 
 messages:
+  # Used when the sender passes an unknown subcommand to the `/beechat` command
+  unknown-subcommand: '<red>Unknown subcommand'
   # Message for '/beechat reload' command
   reload: '<green>The <gradient:yellow:gold>BeeChat</gradient> configuration has been reloaded'

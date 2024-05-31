@@ -4,7 +4,6 @@ import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.command.PluginIdentifiableCommand
-import org.bukkit.plugin.Plugin
 
 object BeeChatCommand : Command("beechat"), PluginIdentifiableCommand {
     init {
@@ -17,15 +16,20 @@ object BeeChatCommand : Command("beechat"), PluginIdentifiableCommand {
         args: Array<out String>
     ): Boolean {
         testPermission(sender)
+        val messages = this.plugin.config.messages
 
         if (args.firstOrNull() == "reload") {
             this.plugin.loadConfig()
             this.plugin.restartTabListUpdateTask()
-            val message = this.plugin.config.messages.reload
-            sender.sendMessage(MiniMessage.miniMessage().deserialize(message))
+
+            sender.sendMessage(MiniMessage.miniMessage().deserialize(messages.reload))
+
+            return true
         }
 
-        return true
+        sender.sendMessage(MiniMessage.miniMessage().deserialize(messages.unknownSubcommand))
+
+        return false
     }
 
     override fun tabComplete(
@@ -37,6 +41,7 @@ object BeeChatCommand : Command("beechat"), PluginIdentifiableCommand {
         if (args.size == 1) {
             completions.add("reload")
         }
+
         return completions
     }
 
