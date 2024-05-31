@@ -48,9 +48,7 @@ class BeeChat : JavaPlugin() {
 
     fun loadConfig() {
         val configFile = File(this.dataFolder, "config.yml")
-        if (!configFile.exists()) {
-            saveDefaultConfig()
-        }
+        saveDefaultConfig()
 
         val loader = YamlConfigurationLoader.builder()
             .file(configFile)
