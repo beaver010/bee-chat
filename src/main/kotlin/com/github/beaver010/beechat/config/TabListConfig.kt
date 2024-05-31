@@ -4,7 +4,7 @@ import org.spongepowered.configurate.objectmapping.ConfigSerializable
 
 @ConfigSerializable
 data class TabListConfig(
-    val enable: Boolean = true,
+    val enable: Boolean = false,
     val updatePeriod: Long = 200,
     val header: String = "<br><gradient:yellow:gold>Example Server<br>",
     val footer: String = "<br><yellow>Store: <gray>store.example.com<br>",
