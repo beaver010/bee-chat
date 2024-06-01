@@ -5,6 +5,7 @@ import com.github.beaver010.beechat.Placeholders
 import com.github.beaver010.beechat.integration.MiniPlaceholdersIntegration
 import com.github.beaver010.beechat.integration.PlaceholderAPIIntegration
 import com.github.beaver010.beechat.miniMessage
+import io.papermc.paper.chat.ChatRenderer
 import io.papermc.paper.event.player.AsyncChatEvent
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
 import org.bukkit.event.EventHandler
@@ -22,7 +23,7 @@ object ChatListener : Listener {
         val player = event.player
         format = PlaceholderAPIIntegration.parsePlaceholders(player, format)
 
-        event.renderer { source, _, message, _ ->
+        event.renderer(ChatRenderer.viewerUnaware { source, _, message ->
             val tags = TagResolver.resolver(
                 Placeholders.name(source),
                 Placeholders.message(source, message),
@@ -30,6 +31,6 @@ object ChatListener : Listener {
             )
 
             format.miniMessage(tags)
-        }
+        })
     }
 }
