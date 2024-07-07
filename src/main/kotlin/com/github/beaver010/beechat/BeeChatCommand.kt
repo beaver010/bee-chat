@@ -6,7 +6,7 @@ import org.bukkit.command.PluginIdentifiableCommand
 
 object BeeChatCommand : Command("beechat"), PluginIdentifiableCommand {
     init {
-        this.permission = Permissions.reload.name
+        permission = Permissions.reload.name
     }
 
     override fun execute(
@@ -15,11 +15,11 @@ object BeeChatCommand : Command("beechat"), PluginIdentifiableCommand {
         args: Array<out String>
     ): Boolean {
         testPermission(sender)
-        val messages = this.plugin.config.messages
+        val messages = plugin.config.messages
 
         if (args.firstOrNull() == "reload") {
-            this.plugin.loadConfig()
-            this.plugin.restartTabListUpdateTask()
+            plugin.loadConfig()
+            plugin.restartTabListUpdateTask()
 
             sender.sendMessage(messages.reload.miniMessage())
 

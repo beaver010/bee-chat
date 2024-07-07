@@ -3,6 +3,7 @@ package com.github.beaver010.beechat
 import com.github.beaver010.beechat.integration.MiniPlaceholdersIntegration
 import com.github.beaver010.beechat.integration.PlaceholderAPIIntegration
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
+import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 
 object TabList {
@@ -37,9 +38,6 @@ object TabList {
     }
 
     fun update() {
-        BeeChat.instance
-            .server
-            .onlinePlayers
-            .forEach(TabList::send)
+        Bukkit.getOnlinePlayers().forEach(TabList::send)
     }
 }

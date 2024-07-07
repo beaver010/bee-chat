@@ -2,6 +2,7 @@ package com.github.beaver010.beechat
 
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
 import net.kyori.adventure.text.minimessage.tag.standard.StandardTags
+import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.permissions.Permission
 
@@ -23,19 +24,19 @@ object Permissions {
     )
 
     fun register() {
-        val pm = BeeChat.instance.server.pluginManager
+        val pm = Bukkit.getPluginManager()
 
-        pm.addPermission(this.reload)
-        pm.addPermission(this.allMessageFormatting)
+        pm.addPermission(reload)
+        pm.addPermission(allMessageFormatting)
         this.messageFormattingPermissions.keys.forEach(pm::addPermission)
     }
 
     fun allowedMiniMessageTags(player: Player): TagResolver {
-        if (player.hasPermission(this.allMessageFormatting)) {
+        if (player.hasPermission(allMessageFormatting)) {
             return TagResolver.standard()
         }
 
-        val tags = this.messageFormattingPermissions
+        val tags = messageFormattingPermissions
             .filter { player.hasPermission(it.key) }
             .values
 

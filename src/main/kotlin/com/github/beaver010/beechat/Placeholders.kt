@@ -21,7 +21,7 @@ object Placeholders {
             .serialize(chatMessage)
 
         val allowedTags = Permissions.allowedMiniMessageTags(player)
-        val message = this.emptyMiniMessage.deserialize(messagePlainText, allowedTags)
+        val message = emptyMiniMessage.deserialize(messagePlainText, allowedTags)
 
         return Placeholder.component("message", message)
     }
