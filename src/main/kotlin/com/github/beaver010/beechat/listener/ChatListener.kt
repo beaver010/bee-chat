@@ -21,9 +21,10 @@ object ChatListener : Listener {
         }
 
         val player = event.player
+        val message = event.signedMessage().message()
         format = PlaceholderAPIIntegration.parsePlaceholders(player, format)
 
-        event.renderer(ChatRenderer.viewerUnaware { source, _, message ->
+        event.renderer(ChatRenderer.viewerUnaware { source, _, _ ->
             val tags = TagResolver.resolver(
                 Placeholders.name(source),
                 Placeholders.message(source, message),
