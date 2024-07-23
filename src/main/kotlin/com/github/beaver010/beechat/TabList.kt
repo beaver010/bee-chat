@@ -16,7 +16,10 @@ object TabList {
 
             tabListName = PlaceholderAPIIntegration.parsePlaceholders(player, tabListName)
 
-            val tags = TagResolver.resolver(Placeholders.name(player), audiencePlaceholders)
+            val tags = TagResolver.resolver(
+                Placeholders.name(player.displayName()),
+                audiencePlaceholders
+            )
             player.playerListName(tabListName.miniMessage(tags))
         }
 

@@ -1,5 +1,6 @@
 package com.github.beaver010.beechat
 
+import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
@@ -10,8 +11,8 @@ object Placeholders {
         .tags(TagResolver.empty())
         .build()
 
-    fun name(player: Player): TagResolver =
-        Placeholder.unparsed("name", player.name)
+    fun name(playerName: Component): TagResolver =
+        Placeholder.component("name", playerName)
 
     fun message(player: Player, chatMessage: String): TagResolver {
         val allowedTags = Permissions.allowedMiniMessageTags(player)
@@ -19,4 +20,7 @@ object Placeholders {
 
         return Placeholder.component("message", message)
     }
+
+    fun formattedMessage(message: Component): TagResolver =
+        Placeholder.component("message_format", message)
 }

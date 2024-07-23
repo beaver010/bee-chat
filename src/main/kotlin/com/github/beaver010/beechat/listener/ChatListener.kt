@@ -14,24 +14,51 @@ import org.bukkit.event.Listener
 object ChatListener : Listener {
     @EventHandler
     fun onChat(event: AsyncChatEvent) {
-        var format = BeeChat.instance.config.chat.messageFormat
+        val config = BeeChat.instance.config.chat
 
-        if (format.isEmpty()) {
-            return
+        val sender = event.player
+
+        val format = PlaceholderAPIIntegration.parsePlaceholders(sender, config.messageFormat)
+        if (format.isEmpty()) return
+
+        var message = event.signedMessage().message()
+
+        val channel = config.channels
+            .find { channel ->
+                if (channel.permission.isNotEmpty() && !sender.hasPermission(channel.permission)) {
+                    return@find false
+                }
+
+                message.startsWith(channel.identifier)
+            }
+
+        if (channel != null) {
+            message = message.removePrefix(channel.identifier)
+
+            event.viewers().removeAll { viewer ->
+                !channel.canSee(sender, viewer)
+            }
         }
 
-        val player = event.player
-        val message = event.signedMessage().message()
-        format = PlaceholderAPIIntegration.parsePlaceholders(player, format)
-
-        event.renderer(ChatRenderer.viewerUnaware { source, _, _ ->
+        event.renderer(ChatRenderer.viewerUnaware { source, sourceDisplayName, _ ->
             val tags = TagResolver.resolver(
-                Placeholders.name(source),
+                Placeholders.name(sourceDisplayName),
                 Placeholders.message(source, message),
                 MiniPlaceholdersIntegration.audiencePlaceholders(source)
             )
 
-            format.miniMessage(tags)
+            val formattedMessage = format.miniMessage(tags)
+
+            if (channel == null) {
+                return@viewerUnaware formattedMessage
+            }
+
+            channel.format.miniMessage(
+                TagResolver.resolver(
+                    tags,
+                    Placeholders.formattedMessage(formattedMessage)
+                )
+            )
         })
     }
 }

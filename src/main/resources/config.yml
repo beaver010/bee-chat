@@ -8,6 +8,22 @@ chat:
   #   <name> - player name
   #   <message> - message
   message-format: '<name> <yellow>→ <gray><message>'
+  # Placeholders:
+  #   all from `message-format` section
+  #   <message_format> - formatted message from `message-format`
+  channels:
+    # Global chat
+    - identifier: '!'
+      format: '<message_format>'
+
+    # Staff chat
+    - identifier: '#'
+      permission: chat.channel.staff
+      format: '<red>(Staff)</red> <message_format>'
+
+    # Local chat (40 blocks)
+    - distance: 40
+      format: '<yellow>(Local)</yellow> <message_format>'
 
 tab-list:
   # Enable tab list formatting
@@ -23,7 +39,6 @@ tab-list:
   # <name> - placeholder for player name
   player-name: '<name>'
 
-# Messages do NOT support placeholders
 messages:
   # Used when the sender passes an unknown subcommand to the `/beechat` command
   unknown-subcommand: '<red>Unknown subcommand'

@@ -28,7 +28,7 @@ object Permissions {
 
         pm.addPermission(reload)
         pm.addPermission(allMessageFormatting)
-        this.messageFormattingPermissions.keys.forEach(pm::addPermission)
+        messageFormattingPermissions.keys.forEach(pm::addPermission)
     }
 
     fun allowedMiniMessageTags(player: Player): TagResolver {
