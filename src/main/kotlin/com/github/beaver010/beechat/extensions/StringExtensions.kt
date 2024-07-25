@@ -1,4 +1,4 @@
-package com.github.beaver010.beechat
+package com.github.beaver010.beechat.extensions
 
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver

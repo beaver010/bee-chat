@@ -4,43 +4,81 @@
 # ===============================================
 
 chat:
-  # Placeholders:
+  # Message format for chat:
   #   <name> - player name
   #   <message> - message
   message-format: '<name> <yellow>→ <gray><message>'
-  # Placeholders:
-  #   all from `message-format` section
-  #   <message_format> - formatted message from `message-format`
+
   channels:
-    # Global chat
+    # The channel identifier must be at the beginning of the message
+    # for the message to be sent to that chat channel
+
+    # Note: The order of channel identifiers is important.
+    # If there are two identifiers like '!' and '!@', and '!' comes first,
+    # messages starting with '!@' will match '!' and not be sent to the '!@' channel.
+
+    # Global chat channel configuration
     - identifier: '!'
+      # Message format for global chat:
+      #   <name> - player name
+      #   <message> - message
+      #   <message_format> - formatted message from `message-format`
       format: '<message_format>'
 
-    # Staff chat
+    # Staff chat channel configuration
     - identifier: '#'
+      # Permission required to send and view messages in the staff chat
+      # You can use any permission you want
       permission: chat.channel.staff
+      # Message format for staff chat:
+      #   <name> - player name
+      #   <message> - message
+      #   <message_format> - formatted message from `message-format`
       format: '<red>(Staff)</red> <message_format>'
 
-    # Local chat (40 blocks)
-    - distance: 40
+    # Local chat channel configuration (40 blocks radius)
+    # Note: Channels with an empty identifier should be placed last
+    # to avoid conflicts with other channels.
+    - identifier: ''
+      # Distance in blocks within which the message can be heard
+      distance: 40
+      # Message format for local chat:
+      #   <name> - player name
+      #   <message> - message
+      #   <message_format> - formatted message from `message-format`
       format: '<yellow>(Local)</yellow> <message_format>'
 
+  spy:
+    # Spy mode message format:
+    #   <name> - player name
+    #   <message> - message
+    #   <message_format> - formatted message from `message-format`
+    #   <channel_message> - formatted channel message
+    format: '<aqua>Spy</aqua> <channel_message>'
+    # Disable spy mode when the player leaves the game
+    disable-on-leave: true
+
 tab-list:
-  # Enable tab list formatting
+  # Enable or disable tab list formatting
   enable: true
-  # Tab list update period in ticks (20 ticks = 1 second)
-  # 0 to disable updating
+  # Tab list update period in ticks (20 ticks = 1 second), 0 to disable updating
   update-period: 200
-  # Tab list header
+  # Header of the tab list
   header: '<br><gradient:yellow:gold>Example Server<br>'
-  # Tab list footer
+  # Footer of the tab list
   footer: '<br><yellow>Store: <gray>store.example.com<br>'
-  # Player name in tab list.
+  # Player name format in the tab list
   # <name> - placeholder for player name
   player-name: '<name>'
 
 messages:
-  # Used when the sender passes an unknown subcommand to the `/beechat` command
+  # Message for unknown subcommand in `/beechat` command
   unknown-subcommand: '<red>Unknown subcommand'
   # Message for '/beechat reload' command
   reload: '<green>The <gradient:yellow:gold>BeeChat</gradient> configuration has been reloaded'
+  # Message when a non-player entity tries to execute a player-only command
+  not-player: '<red>This command can only be executed by a player'
+  # Message when spy mode is enabled
+  spy-mode-enabled: '<aqua>Spy</aqua> mode <green>enabled</green>. Enter the command again to <red>disable</red>'
+  # Message when spy mode is disabled
+  spy-mode-disabled: '<aqua>Spy</aqua> mode <red>disabled</red>'

@@ -23,4 +23,7 @@ object Placeholders {
 
     fun formattedMessage(message: Component): TagResolver =
         Placeholder.component("message_format", message)
+
+    fun channelMessage(message: Component): TagResolver =
+        Placeholder.component("channel_message", message)
 }

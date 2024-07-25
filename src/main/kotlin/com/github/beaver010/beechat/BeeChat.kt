@@ -3,6 +3,7 @@ package com.github.beaver010.beechat
 import com.github.beaver010.beechat.config.Config
 import com.github.beaver010.beechat.listener.ChatListener
 import com.github.beaver010.beechat.listener.JoinListener
+import com.github.beaver010.beechat.listener.QuitListener
 import org.bukkit.command.Command
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
@@ -28,13 +29,11 @@ class BeeChat : JavaPlugin() {
         Permissions.register()
         registerCommand(BeeChatCommand)
         registerEvents(ChatListener)
+        registerEvents(JoinListener)
+        registerEvents(QuitListener)
 
-        if (config.tabList.enable) {
-            registerEvents(JoinListener)
-
-            if (config.tabList.updatePeriod > 0) {
-                restartTabListUpdateTask()
-            }
+        if (config.tabList.enable && config.tabList.updatePeriod > 0) {
+            restartTabListUpdateTask()
         }
     }
 
@@ -68,7 +67,7 @@ class BeeChat : JavaPlugin() {
     fun restartTabListUpdateTask() {
         tabListUpdateTask?.cancel()
         tabListUpdateTask = server.scheduler.runTaskTimer(
-            instance,
+            this,
             TabList::update,
             0,
             config.tabList.updatePeriod

@@ -1,5 +1,6 @@
 package com.github.beaver010.beechat
 
+import com.github.beaver010.beechat.extensions.miniMessage
 import com.github.beaver010.beechat.integration.MiniPlaceholdersIntegration
 import com.github.beaver010.beechat.integration.PlaceholderAPIIntegration
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver

@@ -1,6 +1,5 @@
 package com.github.beaver010.beechat.config
 
-import net.kyori.adventure.audience.Audience
 import org.bukkit.entity.Player
 import org.spongepowered.configurate.objectmapping.ConfigSerializable
 
@@ -11,11 +10,7 @@ data class ChatChannelConfig(
     val permission: String = "",
     val format: String = "<message_format>"
 ) {
-    fun canSee(sender: Player, viewer: Audience): Boolean {
-        if (viewer !is Player) {
-            return true
-        }
-
+    fun canSee(sender: Player, viewer: Player): Boolean {
         var hasPermission = true
         if (permission.isNotEmpty()) {
             hasPermission = viewer.hasPermission(permission)
