@@ -9,6 +9,7 @@ chat:
   #   <message> - message
   message-format: '<name> <yellow>→ <gray><message>'
 
+  # If you don't need the chat channels, delete this section
   channels:
     # The channel identifier must be at the beginning of the message
     # for the message to be sent to that chat channel
