@@ -28,6 +28,7 @@ object Permissions {
         val pm = Bukkit.getPluginManager()
 
         pm.addPermission(reload)
+        pm.addPermission(spy)
         pm.addPermission(allMessageFormatting)
         messageFormattingPermissions.keys.forEach(pm::addPermission)
     }
