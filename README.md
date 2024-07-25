@@ -33,6 +33,7 @@ BeeChat supports multiple chat channels, each with its own format, distance and 
 ## Spy mode
 Spy mode allows players with permission to monitor all chat channels. 
 This is useful for administrators who need to oversee conversations for moderation purposes.
+When enabled, all messages sent in any channel will be displayed to the spy, formatted according to the spy mode configuration.
 Can be enabled or disabled using the `/beechat spy` command. Permission: **beechat.spy**
 
 ## Tab customization
