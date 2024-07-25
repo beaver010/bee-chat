@@ -39,7 +39,7 @@ chat:
       format: '<red>(Staff)</red> <message_format>'
 
     # Local chat channel configuration (40 blocks radius)
-    # Note: Channels with an empty identifier should be placed last
+    # Note: Channel with an empty identifier should be placed last
     # to avoid conflicts with other channels.
     - identifier: ''
       # Distance in blocks within which the message can be heard
