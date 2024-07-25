@@ -14,9 +14,10 @@ chat:
     # The channel identifier must be at the beginning of the message
     # for the message to be sent to that chat channel
 
-    # Note: The order of channel identifiers is important.
-    # If there are two identifiers like '!' and '!@', and '!' comes first,
-    # messages starting with '!@' will match '!' and not be sent to the '!@' channel.
+    # Note: The order of channels is important.
+    # If there are two channels with identifiers like '!' and '!@', 
+    # and channel with '!' comes first, messages starting with '!@' 
+    # will match '!' and not be sent to the '!@' channel.
 
     # Global chat channel configuration
     - identifier: '!'
