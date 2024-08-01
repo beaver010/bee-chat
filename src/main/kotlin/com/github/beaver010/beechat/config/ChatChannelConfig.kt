@@ -8,7 +8,7 @@ data class ChatChannelConfig(
     val identifier: String = "",
     val distance: Double = 0.0,
     val permission: String = "",
-    val format: String = "<message_format>"
+    val format: String = "<message_format>",
 ) {
     fun canSee(sender: Player, viewer: Player): Boolean {
         var hasPermission = true

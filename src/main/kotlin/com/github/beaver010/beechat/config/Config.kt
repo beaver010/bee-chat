@@ -6,5 +6,5 @@ import org.spongepowered.configurate.objectmapping.ConfigSerializable
 data class Config(
     val chat: ChatConfig = ChatConfig(),
     val tabList: TabListConfig = TabListConfig(),
-    val messages: MessagesConfig = MessagesConfig()
+    val messages: MessagesConfig = MessagesConfig(),
 )

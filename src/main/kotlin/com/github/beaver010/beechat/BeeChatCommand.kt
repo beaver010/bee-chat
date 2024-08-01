@@ -11,7 +11,7 @@ object BeeChatCommand : Command("beechat"), PluginIdentifiableCommand {
     override fun execute(
         sender: CommandSender,
         commandLabel: String,
-        args: Array<out String>
+        args: Array<out String>,
     ): Boolean {
         val messages = plugin.config.messages
 
@@ -61,7 +61,7 @@ object BeeChatCommand : Command("beechat"), PluginIdentifiableCommand {
     override fun tabComplete(
         sender: CommandSender,
         alias: String,
-        args: Array<out String>
+        args: Array<out String>,
     ): MutableList<String> {
         val completions = mutableListOf<String>()
         if (args.size == 1) {
