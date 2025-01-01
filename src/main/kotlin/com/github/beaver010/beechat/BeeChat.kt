@@ -7,7 +7,6 @@ import com.github.beaver010.beechat.listener.QuitListener
 import org.bukkit.command.Command
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
-import org.bukkit.scheduler.BukkitTask
 import org.spongepowered.configurate.kotlin.extensions.get
 import org.spongepowered.configurate.kotlin.objectMapperFactory
 import org.spongepowered.configurate.yaml.NodeStyle
@@ -17,7 +16,7 @@ import java.io.File
 class BeeChat : JavaPlugin() {
     lateinit var config: Config private set
 
-    private var tabListUpdateTask: BukkitTask? = null
+    private val playerListUpdateTask = Task(execute = TabList::update)
 
     override fun onLoad() {
         instance = this
@@ -33,7 +32,7 @@ class BeeChat : JavaPlugin() {
         registerEvents(QuitListener)
 
         if (config.tabList.enable && config.tabList.updatePeriod > 0) {
-            restartTabListUpdateTask()
+            restartPlayerListUpdateTask()
         }
     }
 
@@ -64,14 +63,8 @@ class BeeChat : JavaPlugin() {
         config = rootNode.get() ?: Config()
     }
 
-    fun restartTabListUpdateTask() {
-        tabListUpdateTask?.cancel()
-        tabListUpdateTask = server.scheduler.runTaskTimer(
-            this,
-            TabList::update,
-            0,
-            config.tabList.updatePeriod
-        )
+    fun restartPlayerListUpdateTask() {
+        playerListUpdateTask.runTimer(period = config.tabList.updatePeriod)
     }
 
     companion object {
