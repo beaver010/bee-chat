@@ -63,7 +63,7 @@ chat:
 tab-list:
   # Enable or disable tab list formatting
   enable: true
-  # Tab list update period in ticks (20 ticks = 1 second), 0 to disable updating
+  # Tab list update period in ticks (20 ticks ≈ 1 second), 0 to disable updating
   update-period: 200
   # Header of the tab list
   header: '<br><gradient:yellow:gold>Example Server<br>'
