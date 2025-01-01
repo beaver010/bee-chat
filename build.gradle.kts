@@ -3,8 +3,8 @@ plugins {
     id("com.gradleup.shadow") version "8.3.5"
 }
 
-group = "com.github.beaver010"
-version = "1.5.0"
+group = properties["group"] as String
+version = properties["version"] as String
 
 repositories {
     mavenCentral()
@@ -13,11 +13,16 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
-    compileOnly("io.github.miniplaceholders:miniplaceholders-api:2.2.3")
-    compileOnly("me.clip:placeholderapi:2.11.6")
-    implementation("org.spongepowered:configurate-yaml:4.1.2")
-    implementation("org.spongepowered:configurate-extra-kotlin:4.1.2")
+    val paperVersion by properties
+    val miniplaceholdersVersion by properties
+    val placeholderapiVersion by properties
+    val configurateVersion by properties
+
+    compileOnly("io.papermc.paper:paper-api:$paperVersion")
+    compileOnly("io.github.miniplaceholders:miniplaceholders-api:$miniplaceholdersVersion")
+    compileOnly("me.clip:placeholderapi:$placeholderapiVersion")
+    implementation("org.spongepowered:configurate-yaml:$configurateVersion")
+    implementation("org.spongepowered:configurate-extra-kotlin:$configurateVersion")
 }
 
 kotlin {
