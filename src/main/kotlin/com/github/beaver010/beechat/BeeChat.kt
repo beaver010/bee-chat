@@ -1,6 +1,7 @@
 package com.github.beaver010.beechat
 
 import com.github.beaver010.beechat.config.Config
+import com.github.beaver010.beechat.extensions.register
 import com.github.beaver010.beechat.listener.ChatListener
 import com.github.beaver010.beechat.listener.JoinListener
 import com.github.beaver010.beechat.listener.QuitListener
@@ -27,9 +28,10 @@ class BeeChat : JavaPlugin() {
 
         Permissions.register()
         registerCommand(BeeChatCommand)
-        registerEvents(ChatListener)
-        registerEvents(JoinListener)
-        registerEvents(QuitListener)
+
+        ChatListener.register(this)
+        JoinListener.register(this)
+        QuitListener.register(this)
 
         if (config.tabList.enable && config.tabList.updatePeriod > 0) {
             restartTabListUpdateTask()
@@ -38,10 +40,6 @@ class BeeChat : JavaPlugin() {
 
     private fun registerCommand(command: Command) {
         server.commandMap.register(name, command)
-    }
-
-    private fun registerEvents(listener: Listener) {
-        server.pluginManager.registerEvents(listener, this)
     }
 
     fun loadConfig() {
