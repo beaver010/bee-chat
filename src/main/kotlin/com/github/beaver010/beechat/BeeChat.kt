@@ -6,7 +6,6 @@ import com.github.beaver010.beechat.listener.ChatListener
 import com.github.beaver010.beechat.listener.JoinListener
 import com.github.beaver010.beechat.listener.QuitListener
 import org.bukkit.command.Command
-import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 import org.spongepowered.configurate.kotlin.extensions.get
 import org.spongepowered.configurate.kotlin.objectMapperFactory
