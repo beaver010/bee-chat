@@ -16,7 +16,7 @@ import java.io.File
 class BeeChat : JavaPlugin() {
     lateinit var config: Config private set
 
-    private val playerListUpdateTask = Task(execute = TabList::update)
+    private val tabListUpdateTask = Task(execute = TabList::update)
 
     override fun onLoad() {
         instance = this
@@ -32,7 +32,7 @@ class BeeChat : JavaPlugin() {
         registerEvents(QuitListener)
 
         if (config.tabList.enable && config.tabList.updatePeriod > 0) {
-            restartPlayerListUpdateTask()
+            restartTabListUpdateTask()
         }
     }
 
@@ -63,8 +63,8 @@ class BeeChat : JavaPlugin() {
         config = rootNode.get() ?: Config()
     }
 
-    fun restartPlayerListUpdateTask() {
-        playerListUpdateTask.runTimer(period = config.tabList.updatePeriod)
+    fun restartTabListUpdateTask() {
+        tabListUpdateTask.runTimer(period = config.tabList.updatePeriod)
     }
 
     companion object {

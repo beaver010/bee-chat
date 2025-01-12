@@ -23,7 +23,7 @@ object BeeChatCommand : Command("beechat"), PluginIdentifiableCommand {
                 }
 
                 plugin.loadConfig()
-                plugin.restartPlayerListUpdateTask()
+                plugin.restartTabListUpdateTask()
 
                 sender.sendRichMessage(messages.reload)
 
