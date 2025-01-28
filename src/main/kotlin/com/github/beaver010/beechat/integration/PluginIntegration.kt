@@ -2,6 +2,8 @@ package com.github.beaver010.beechat.integration
 
 import org.bukkit.Bukkit
 
-open class PluginIntegration(pluginName: String) {
-    val isAvailable = Bukkit.getPluginManager().isPluginEnabled(pluginName)
+interface PluginIntegration {
+    val pluginName: String
+    val isAvailable: Boolean
+        get() = Bukkit.getPluginManager().isPluginEnabled(pluginName)
 }
