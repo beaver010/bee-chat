@@ -21,7 +21,7 @@ object Permissions {
         formatPermission("decorations") to StandardTags.decorations(),
         formatPermission("insertion") to StandardTags.insertion(),
         formatPermission("click") to StandardTags.clickEvent(),
-        formatPermission("hover") to StandardTags.hoverEvent()
+        formatPermission("hover") to StandardTags.hoverEvent(),
     )
 
     fun register() {
