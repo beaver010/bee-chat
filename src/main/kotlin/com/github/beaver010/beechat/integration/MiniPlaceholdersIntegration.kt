@@ -4,7 +4,9 @@ import io.github.miniplaceholders.api.MiniPlaceholders
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
 
-object MiniPlaceholdersIntegration : PluginIntegration("MiniPlaceholders") {
+object MiniPlaceholdersIntegration : PluginIntegration {
+    override val pluginName = "MiniPlaceholders"
+
     fun audiencePlaceholders(audience: Audience) = if (isAvailable) {
         MiniPlaceholders.getAudiencePlaceholders(audience)
     } else {
