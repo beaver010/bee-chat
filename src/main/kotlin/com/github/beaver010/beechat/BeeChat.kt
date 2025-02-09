@@ -5,7 +5,6 @@ import com.github.beaver010.beechat.extensions.register
 import com.github.beaver010.beechat.listener.ChatListener
 import com.github.beaver010.beechat.listener.JoinListener
 import com.github.beaver010.beechat.listener.QuitListener
-import org.bukkit.command.Command
 import org.bukkit.plugin.java.JavaPlugin
 import org.spongepowered.configurate.kotlin.extensions.get
 import org.spongepowered.configurate.kotlin.objectMapperFactory
@@ -26,7 +25,7 @@ class BeeChat : JavaPlugin() {
         loadConfig()
 
         Permissions.register()
-        registerCommand(BeeChatCommand)
+        BeeChatCommand.register()
 
         ChatListener.register(this)
         JoinListener.register(this)
@@ -35,10 +34,6 @@ class BeeChat : JavaPlugin() {
         if (config.tabList.enable && config.tabList.updatePeriod > 0) {
             restartTabListUpdateTask()
         }
-    }
-
-    private fun registerCommand(command: Command) {
-        server.commandMap.register(name, command)
     }
 
     fun loadConfig() {
