@@ -17,7 +17,7 @@ class BeeChat : JavaPlugin() {
 
     private val tabListUpdateTask = Task(execute = TabList::update)
 
-    override fun onLoad() {
+    init {
         instance = this
     }
 
