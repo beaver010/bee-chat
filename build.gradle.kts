@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "2.1.10"
+    kotlin("plugin.serialization") version "2.1.10"
     id("com.gradleup.shadow") version "8.3.6"
 }
 
@@ -16,13 +17,12 @@ dependencies {
     val paperVersion by properties
     val miniplaceholdersVersion by properties
     val placeholderapiVersion by properties
-    val configurateVersion by properties
+    val kamlVersion by properties
 
     compileOnly("io.papermc.paper:paper-api:$paperVersion")
     compileOnly("io.github.miniplaceholders:miniplaceholders-api:$miniplaceholdersVersion")
     compileOnly("me.clip:placeholderapi:$placeholderapiVersion")
-    implementation("org.spongepowered:configurate-yaml:$configurateVersion")
-    implementation("org.spongepowered:configurate-extra-kotlin:$configurateVersion")
+    implementation("com.charleskorn.kaml:kaml:$kamlVersion")
 }
 
 kotlin {

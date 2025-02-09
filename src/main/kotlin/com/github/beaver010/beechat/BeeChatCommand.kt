@@ -22,11 +22,8 @@ object BeeChatCommand : Command("beechat"), PluginIdentifiableCommand {
                     return false
                 }
 
-                plugin.loadConfig()
-                plugin.restartTabListUpdateTask()
-
+                plugin.reload()
                 sender.sendRichMessage(messages.reload)
-
                 true
             }
             "spy" -> {
@@ -52,7 +49,6 @@ object BeeChatCommand : Command("beechat"), PluginIdentifiableCommand {
             }
             else -> {
                 sender.sendRichMessage(messages.unknownSubcommand)
-
                 false
             }
         }

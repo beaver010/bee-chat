@@ -1,15 +1,17 @@
 package com.github.beaver010.beechat
 
+import com.charleskorn.kaml.Yaml
+import com.charleskorn.kaml.YamlConfiguration
+import com.charleskorn.kaml.YamlNamingStrategy
+import com.charleskorn.kaml.decodeFromStream
+import com.charleskorn.kaml.encodeToStream
 import com.github.beaver010.beechat.config.Config
 import com.github.beaver010.beechat.extensions.register
 import com.github.beaver010.beechat.listener.ChatListener
 import com.github.beaver010.beechat.listener.JoinListener
 import com.github.beaver010.beechat.listener.QuitListener
+import kotlinx.serialization.SerializationException
 import org.bukkit.plugin.java.JavaPlugin
-import org.spongepowered.configurate.kotlin.extensions.get
-import org.spongepowered.configurate.kotlin.objectMapperFactory
-import org.spongepowered.configurate.yaml.NodeStyle
-import org.spongepowered.configurate.yaml.YamlConfigurationLoader
 import java.io.File
 
 class BeeChat : JavaPlugin() {
@@ -22,7 +24,7 @@ class BeeChat : JavaPlugin() {
     }
 
     override fun onEnable() {
-        loadConfig()
+        reload()
 
         Permissions.register()
         BeeChatCommand.register()
@@ -30,34 +32,52 @@ class BeeChat : JavaPlugin() {
         ChatListener.register(this)
         JoinListener.register(this)
         QuitListener.register(this)
+    }
 
-        if (config.tabList.enable && config.tabList.updatePeriod > 0) {
-            restartTabListUpdateTask()
+    fun reload() {
+        config = loadConfig()
+        if (shouldRestartTabListTask()) {
+            tabListUpdateTask.runTimer(period = config.tabList.updatePeriod)
         }
     }
 
-    fun loadConfig() {
-        val configFile = File(dataFolder, "config.yml")
-        saveDefaultConfig()
+    private fun shouldRestartTabListTask(): Boolean =
+        config.tabList.enable && config.tabList.updatePeriod > 0
 
-        val loader = YamlConfigurationLoader.builder()
-            .file(configFile)
-            .nodeStyle(NodeStyle.BLOCK)
-            .defaultOptions { opts ->
-                opts.serializers { builder ->
-                    builder.registerAnnotatedObjects(objectMapperFactory())
+    private fun loadConfig(): Config {
+        val yaml = createYaml()
+        val configFile = File(dataFolder, "config.yml")
+
+        return if (configFile.exists()) {
+            configFile.inputStream().use {
+                try {
+                    yaml.decodeFromStream(it)
+                } catch (e: SerializationException) {
+                    logger.severe("Failed to load config.yml: ${e.localizedMessage}")
+                    logger.warning("Using the default configuration due to a previous error")
+                    Config()
                 }
             }
-            .build()
-
-        val rootNode = loader.load()
-
-        config = rootNode.get() ?: Config()
+        } else {
+            configFile.outputStream().use { stream ->
+                Config().also {
+                    try {
+                        yaml.encodeToStream(it, stream)
+                    } catch (e: SerializationException) {
+                        logger.severe("Failed to save config.yml: ${e.localizedMessage}")
+                    }
+                }
+            }
+        }
     }
 
-    fun restartTabListUpdateTask() {
-        tabListUpdateTask.runTimer(period = config.tabList.updatePeriod)
-    }
+    private fun createYaml(): Yaml =
+        Yaml(
+            configuration = YamlConfiguration(
+                breakScalarsAt = 120,
+                yamlNamingStrategy = YamlNamingStrategy.KebabCase,
+            )
+        )
 
     companion object {
         lateinit var instance: BeeChat private set

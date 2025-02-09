@@ -1,8 +1,8 @@
 package com.github.beaver010.beechat.config
 
-import org.spongepowered.configurate.objectmapping.ConfigSerializable
+import kotlinx.serialization.Serializable
 
-@ConfigSerializable
+@Serializable
 data class ChatConfig(
     val messageFormat: String = "<name> <yellow>→ <gray><message>",
     val channels: List<ChatChannelConfig> = emptyList(),
