@@ -49,25 +49,9 @@ class BeeChat : JavaPlugin() {
         val configFile = File(dataFolder, "config.yml")
 
         return if (configFile.exists()) {
-            configFile.inputStream().use {
-                try {
-                    yaml.decodeFromStream(it)
-                } catch (e: SerializationException) {
-                    logger.severe("Failed to load config.yml: ${e.localizedMessage}")
-                    logger.warning("Using the default configuration due to a previous error")
-                    Config()
-                }
-            }
+            loadConfigFromFile(configFile, yaml)
         } else {
-            configFile.outputStream().use { stream ->
-                Config().also {
-                    try {
-                        yaml.encodeToStream(it, stream)
-                    } catch (e: SerializationException) {
-                        logger.severe("Failed to save config.yml: ${e.localizedMessage}")
-                    }
-                }
-            }
+            saveDefaultConfig(configFile, yaml)
         }
     }
 
@@ -78,6 +62,28 @@ class BeeChat : JavaPlugin() {
                 yamlNamingStrategy = YamlNamingStrategy.KebabCase,
             )
         )
+
+    private fun loadConfigFromFile(file: File, yaml: Yaml): Config =
+        file.inputStream().use { stream ->
+            try {
+                yaml.decodeFromStream(stream)
+            } catch (e: SerializationException) {
+                logger.severe("Failed to load config.yml: ${e.localizedMessage}")
+                logger.warning("Using the default configuration due to a previous error")
+                Config()
+            }
+        }
+
+    private fun saveDefaultConfig(file: File, yaml: Yaml): Config =
+        file.outputStream().use { stream ->
+            Config().also {
+                try {
+                    yaml.encodeToStream(it, stream)
+                } catch (e: SerializationException) {
+                    logger.severe("Failed to save config.yml: ${e.localizedMessage}")
+                }
+            }
+        }
 
     companion object {
         lateinit var instance: BeeChat private set
