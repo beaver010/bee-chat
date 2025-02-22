@@ -10,6 +10,7 @@ import com.github.beaver010.beechat.listener.ChatListener
 import com.github.beaver010.beechat.listener.JoinListener
 import com.github.beaver010.beechat.listener.QuitListener
 import kotlinx.serialization.SerializationException
+import org.bstats.bukkit.Metrics
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 
@@ -31,6 +32,8 @@ class BeeChat : JavaPlugin() {
         ChatListener.register(this)
         JoinListener.register(this)
         QuitListener.register(this)
+
+        Metrics(this, 24314)
     }
 
     fun reload() {

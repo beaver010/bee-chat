@@ -23,6 +23,11 @@ dependencies {
     compileOnly("io.github.miniplaceholders:miniplaceholders-api:$miniplaceholdersVersion")
     compileOnly("me.clip:placeholderapi:$placeholderapiVersion")
     implementation("com.charleskorn.kaml:kaml:$kamlVersion")
+    implementation("org.bstats:bstats-bukkit:3.0.2")
+}
+
+tasks.shadowJar {
+    relocate("org.bstats", "com.github.beaver010.beechat.metrics")
 }
 
 kotlin {
