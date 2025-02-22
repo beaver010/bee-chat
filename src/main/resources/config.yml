@@ -25,7 +25,7 @@ chat:
       #   <name> - player name
       #   <message> - message
       #   <message_format> - formatted message from `message-format`
-      format: '<message_format>'
+      format: '<green>(Global)</green> <message_format>'
 
     # Staff chat channel configuration
     - identifier: '#'
