@@ -4,7 +4,6 @@ import com.charleskorn.kaml.Yaml
 import com.charleskorn.kaml.YamlConfiguration
 import com.charleskorn.kaml.YamlNamingStrategy
 import com.charleskorn.kaml.decodeFromStream
-import com.charleskorn.kaml.encodeToStream
 import com.github.beaver010.beechat.config.Config
 import com.github.beaver010.beechat.extensions.register
 import com.github.beaver010.beechat.listener.ChatListener
@@ -35,7 +34,7 @@ class BeeChat : JavaPlugin() {
     }
 
     fun reload() {
-        config = loadConfig()
+        config = saveAndLoadConfig()
         if (shouldRestartTabListTask()) {
             tabListUpdateTask.runTimer(period = config.tabList.updatePeriod)
         }
@@ -44,15 +43,13 @@ class BeeChat : JavaPlugin() {
     private fun shouldRestartTabListTask(): Boolean =
         config.tabList.enable && config.tabList.updatePeriod > 0
 
-    private fun loadConfig(): Config {
+    private fun saveAndLoadConfig(): Config {
         val yaml = createYaml()
         val configFile = File(dataFolder, "config.yml")
 
-        return if (configFile.exists()) {
-            loadConfigFromFile(configFile, yaml)
-        } else {
-            saveDefaultConfig(configFile, yaml)
-        }
+        saveDefaultConfig()
+
+        return loadConfigFromFile(configFile, yaml)
     }
 
     private fun createYaml(): Yaml =
@@ -71,17 +68,6 @@ class BeeChat : JavaPlugin() {
                 logger.severe("Failed to load config.yml: ${e.localizedMessage}")
                 logger.warning("Using the default configuration due to a previous error")
                 Config()
-            }
-        }
-
-    private fun saveDefaultConfig(file: File, yaml: Yaml): Config =
-        file.outputStream().use { stream ->
-            Config().also {
-                try {
-                    yaml.encodeToStream(it, stream)
-                } catch (e: SerializationException) {
-                    logger.severe("Failed to save config.yml: ${e.localizedMessage}")
-                }
             }
         }
 
