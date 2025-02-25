@@ -6,6 +6,10 @@ import org.bukkit.scheduler.BukkitTask
 class Task(val execute: () -> Unit) {
     private var bukkitTask: BukkitTask? = null
 
+    fun runAsync() {
+        Bukkit.getScheduler().runTaskAsynchronously(BeeChat.instance, execute)
+    }
+
     fun runTimer(period: Long, delay: Long = 0) {
         stop()
 
