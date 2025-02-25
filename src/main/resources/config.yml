@@ -3,84 +3,86 @@
 #   -> https://docs.advntr.dev/minimessage/format
 # ===============================================
 
+# Automatically check for updates at startup.
+# Update checking is performed during startup in the background
+# and does not affect startup performance.
+check-for-updates: true
+
 chat:
-  # Message format for chat:
+  # Message format for chat.
+  # Placeholders:
   #   <name> - player name
   #   <message> - message
   message-format: '<name> <yellow>→ <gray><message>'
 
-  # If you don't need the chat channels, delete this section
+  # If you don't need the chat channels, delete this section.
   channels:
     # The channel identifier must be at the beginning of the message
-    # for the message to be sent to that chat channel
+    # for the message to be sent to that chat channel.
 
-    # Note: The order of channels is important.
-    # If there are two channels with identifiers like '!' and '!@', 
-    # and channel with '!' comes first, messages starting with '!@' 
-    # will match '!' and not be sent to the '!@' channel.
+    # Note:
+    # - The order of channels is important.
+    #   If there are two channels with identifiers like '!' and '!@',
+    #   and channel with '!' comes first, messages starting with '!@'
+    #   will match '!' and not be sent to the '!@' channel.
+    # - If the channel identifier is empty,
+    #   this channel will be used by default
+    #   and should be placed last to avoid conflicts with other channels.
 
-    # Global chat channel configuration
+    # Global chat channel (anyone can send messages and view them)
     - identifier: '!'
-      # Message format for global chat:
+      # Placeholders:
       #   <name> - player name
       #   <message> - message
       #   <message_format> - formatted message from `message-format`
       format: '<green>(Global)</green> <message_format>'
 
-    # Staff chat channel configuration
+    # Staff chat channel (with permission)
     - identifier: '#'
-      # Permission required to send and view messages in the staff chat
-      # You can use any permission you want
+      # Permission required to send and view messages in the staff chat.
+      # You can use any permission you want.
       permission: chat.channel.staff
-      # Message format for staff chat:
-      #   <name> - player name
-      #   <message> - message
-      #   <message_format> - formatted message from `message-format`
       format: '<red>(Staff)</red> <message_format>'
 
-    # Local chat channel configuration (40 blocks radius)
-    # Note: Channel with an empty identifier should be placed last
-    # to avoid conflicts with other channels.
+    # Local chat channel (40 blocks radius)
     - identifier: ''
-      # Distance in blocks within which the message can be heard
+      # Distance in blocks within which the message can be heard.
       distance: 40
-      # Message format for local chat:
-      #   <name> - player name
-      #   <message> - message
-      #   <message_format> - formatted message from `message-format`
       format: '<yellow>(Local)</yellow> <message_format>'
 
   spy:
-    # Spy mode message format:
+    # Spy mode message format.
+    # Placeholders:
     #   <name> - player name
     #   <message> - message
     #   <message_format> - formatted message from `message-format`
     #   <channel_message> - formatted channel message
     format: '<aqua>Spy</aqua> <channel_message>'
-    # Disable spy mode when the player leaves the game
+    # Disable spy mode when the player leaves the game.
     disable-on-leave: true
 
 tab-list:
-  # Enable or disable tab list formatting
+  # Enable or disable tab list formatting.
   enable: true
-  # Tab list update period in ticks (20 ticks ≈ 1 second), 0 to disable updating
+  # Tab list update period in ticks (20 ticks ≈ 1 second), 0 to disable updating.
   update-period: 200
-  # Header of the tab list
+  # Header of the tab list.
   header: '<br><gradient:yellow:gold>Example Server<br>'
-  # Footer of the tab list
+  # Footer of the tab list.
   footer: '<br><yellow>Store: <gray>store.example.com<br>'
-  # Player name format in the tab list
-  # <name> - placeholder for player name
+  # Player name format in the tab list.
+  # Placeholders:
+  #   <name> - player name
   player-name: '<name>'
 
 messages:
-  # Message for unknown subcommand in `/beechat` command
+  # Message for unknown subcommand in `/beechat` command.
   unknown-subcommand: '<red>Unknown subcommand'
-  # Message for '/beechat reload' command
+  # Message for '/beechat reload' command.
   reload: '<green>The <gradient:yellow:gold>BeeChat</gradient> configuration has been reloaded'
-  # Message when a non-player entity tries to execute a player-only command
+  # Message when a non-player entity tries to execute a player-only command.
   not-player: '<red>This command can only be executed by a player'
-  # Message when spy mode is enabled
+  # Message when spy mode is enabled.
   spy-mode-enabled: '<aqua>Spy</aqua> mode <green>enabled</green>. Enter the command again to <red>disable</red>'
-  # Message when spy mode is disabled
+  # Message when spy mode is disabled.
   spy-mode-disabled: '<aqua>Spy</aqua> mode <red>disabled</red>'

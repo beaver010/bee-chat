@@ -9,12 +9,19 @@ import com.github.beaver010.beechat.extensions.register
 import com.github.beaver010.beechat.listener.ChatListener
 import com.github.beaver010.beechat.listener.JoinListener
 import com.github.beaver010.beechat.listener.QuitListener
+import com.github.beaver010.beechat.utils.UpdateChecker
 import kotlinx.serialization.SerializationException
 import org.bstats.bukkit.Metrics
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 
 class BeeChat : JavaPlugin() {
+    companion object {
+        const val VERSION = "1.6.0"
+
+        lateinit var instance: BeeChat private set
+    }
+
     lateinit var config: Config private set
 
     private val tabListUpdateTask = Task(execute = TabList::update)
@@ -34,6 +41,8 @@ class BeeChat : JavaPlugin() {
         QuitListener.register(this)
 
         Metrics(this, 24314)
+
+        checkForUpdatesAsync()
     }
 
     fun reload() {
@@ -74,7 +83,9 @@ class BeeChat : JavaPlugin() {
             }
         }
 
-    companion object {
-        lateinit var instance: BeeChat private set
+    private fun checkForUpdatesAsync() {
+        if (config.checkForUpdates) {
+            Task { UpdateChecker.checkForUpdates(componentLogger) }.runAsync()
+        }
     }
 }
