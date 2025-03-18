@@ -26,8 +26,14 @@ dependencies {
     implementation("org.bstats:bstats-bukkit:3.0.2")
 }
 
-tasks.shadowJar {
-    relocate("org.bstats", "com.github.beaver010.beechat.metrics")
+tasks {
+    build {
+        dependsOn(shadowJar)
+    }
+
+    shadowJar {
+        relocate("org.bstats", "com.github.beaver010.beechat.metrics")
+    }
 }
 
 kotlin {
