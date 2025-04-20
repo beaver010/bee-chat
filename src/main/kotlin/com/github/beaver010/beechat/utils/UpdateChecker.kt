@@ -23,10 +23,13 @@ object UpdateChecker {
             return
         }
 
-        if (latestVersion == BeeChat.VERSION) {
+        @Suppress("UnstableApiUsage")
+        val currentVersion = BeeChat.instance.pluginMeta.version
+
+        if (latestVersion == currentVersion) {
             logger.info(Message.NO_NEW_VERSION_AVAILABLE)
         } else {
-            logger.info(Message.newVersionAvailable(BeeChat.VERSION, latestVersion))
+            logger.info(Message.newVersionAvailable(currentVersion, latestVersion))
             logger.info(Message.hangarLink)
             logger.info(Message.modrinthLink)
             logger.info(Message.githubLink)

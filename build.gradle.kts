@@ -34,6 +34,15 @@ tasks {
     shadowJar {
         relocate("org.bstats", "com.github.beaver010.beechat.metrics")
     }
+
+    processResources {
+        val props = mapOf("version" to version)
+        inputs.properties(props)
+        filteringCharset = "UTF-8"
+        filesMatching("paper-plugin.yml") {
+            expand(props)
+        }
+    }
 }
 
 kotlin {

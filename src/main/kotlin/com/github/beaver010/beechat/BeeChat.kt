@@ -16,12 +16,6 @@ import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 
 class BeeChat : JavaPlugin() {
-    companion object {
-        const val VERSION = "1.6.0"
-
-        lateinit var instance: BeeChat private set
-    }
-
     lateinit var config: Config private set
 
     private val tabListUpdateTask = Task(execute = TabList::update)
@@ -87,5 +81,9 @@ class BeeChat : JavaPlugin() {
         if (config.checkForUpdates) {
             Task { UpdateChecker.checkForUpdates(componentLogger) }.runAsync()
         }
+    }
+
+    companion object {
+        lateinit var instance: BeeChat private set
     }
 }
